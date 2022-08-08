@@ -23,6 +23,8 @@ export default class App extends React.Component<{}, IState> {
 		};
 	}
 
+	private inputBox: HTMLInputElement;
+
 	private inputListener(e: React.FormEvent<HTMLInputElement>) {
 		const { equationList } = this.state;
 		const first = equationList[0];
@@ -43,7 +45,7 @@ export default class App extends React.Component<{}, IState> {
 
 	render() {
 		return (
-			<div className="board">
+			<div className="board" onClick={() => { this.inputBox.focus(); }}>
 				<div className="eq-list">
 					{
 						this.state.equationList.map((row, idx) =>
@@ -78,7 +80,11 @@ export default class App extends React.Component<{}, IState> {
 						: null
 				}
 
-				<input type="number" onInput={this.inputListener.bind(this)} style={{ transform: "translateY(360px)" }} />
+				<input
+					type="number"
+					ref={(box) => { this.inputBox = box as HTMLInputElement; }}
+					onInput={this.inputListener.bind(this)}
+					style={{ transform: "translateY(360px)" }} />
 
 				{/* <LatexExample /> */}
 			</div>

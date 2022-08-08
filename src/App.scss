@@ -1,3 +1,13 @@
+@mixin force-layout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+}
+
 body {
     background: navy;
 }
@@ -22,24 +32,12 @@ body {
         text-shadow: 0 0 4px magenta;
 
         & > div {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-            width: fit-content;
-            height: fit-content;
+            @include force-layout();
         }
     }
 
     .exiting-equation {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: fit-content;
-        height: fit-content;
+        @include force-layout();
     }
 
     input {
@@ -58,6 +56,7 @@ body {
         width: 200px;
     }
 
+    // reflection
     &::before {
         pointer-events: none;
         content: "";
