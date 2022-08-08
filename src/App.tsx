@@ -3,9 +3,13 @@ import Latex from "react-latex-next";
 import './App.scss'
 import { Equation } from './modules/equation';
 import { motion } from "framer-motion";
+import { random } from 'lodash';
 
 interface IState {
 	equationList: Equation[];
+
+	/** LateX string */
+	exitingEquation: string;
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -14,7 +18,8 @@ export default class App extends React.Component<{}, IState> {
 
 		this.state = {
 			// equationList: ["$a + b = ?$", "$c + d = ?$"]
-			equationList: [...Array(5)].map((_, i) => new Equation())
+			equationList: [...Array(5)].map((_, i) => new Equation()),
+			exitingEquation: ""
 		};
 	}
 
@@ -29,9 +34,10 @@ export default class App extends React.Component<{}, IState> {
 			e.currentTarget.value = "";
 
 			const item = equationList.shift();
-			item?.generate();
+			const exitingEquation = item!.getLateX();
+			item!.generate();
 			equationList.push(item!);
-			this.setState({ equationList });
+			this.setState({ equationList, exitingEquation });
 		}
 	}
 
@@ -48,8 +54,8 @@ export default class App extends React.Component<{}, IState> {
 									y: (5 - idx) * 60 + "px",
 									textShadow: "0 0 " + (5 - idx) * 4 + "px magenta"
 								}}
-								transition={{ ease: "easeOut"}}>
-									{/* Todo: make it slide from top to bottom */}
+								transition={{ ease: "easeOut" }}>
+								{/* Todo: make it slide from top to bottom */}
 
 								<Latex>{row.getLateX()}</Latex>
 							</motion.div>
@@ -57,7 +63,22 @@ export default class App extends React.Component<{}, IState> {
 					}
 				</div>
 
-				<input type="number" onInput={this.inputListener.bind(this)} style={{ transform: "translateY(360px)"}} />
+				{
+					this.state.exitingEquation
+						? <motion.div
+							initial={{ x: 0, y: "300px", opacity: 1 }}
+							animate={{ x: random(0, 1) ? 100 : -100, opacity: 0 }}
+							transition={{ duration: 0.2 }}
+							onAnimationComplete={() => { console.log("transition end"); this.setState({ exitingEquation: "" }); }}
+							
+							className="exiting-equation">
+
+							<Latex>{this.state.exitingEquation}</Latex>
+						</motion.div>
+						: null
+				}
+
+				<input type="number" onInput={this.inputListener.bind(this)} style={{ transform: "translateY(360px)" }} />
 
 				{/* <LatexExample /> */}
 			</div>

@@ -23,12 +23,23 @@ body {
 
         & > div {
             position: absolute;
+            top: 0;
             left: 0;
             right: 0;
             margin: auto;
             width: fit-content;
             height: fit-content;
         }
+    }
+
+    .exiting-equation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: fit-content;
+        height: fit-content;
     }
 
     input {
@@ -40,7 +51,7 @@ body {
         text-align: center;
 
         position: absolute;
-        // bottom: 0;
+        top: 0;
         left: 0;
         right: 0;
         margin: auto;
