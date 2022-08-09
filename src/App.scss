@@ -1,3 +1,7 @@
+:root {
+    --theme: magenta
+}
+
 @mixin force-layout {
     position: absolute;
     top: 0;
@@ -20,16 +24,16 @@ body {
     width: 480px;
     height: 480px;
 
-    border: 4px solid magenta;
+    border: 4px solid var(--theme);
     border-radius: 15px;
-    box-shadow: inset 0 0 20px magenta , 0 0 20px magenta;
+    box-shadow: inset 0 0 20px var(--theme) , 0 0 20px var(--theme);
     color: white;
 
     font-size: 30px;
 
     .eq-list {
-        color: magenta;
-        text-shadow: 0 0 4px magenta;
+        color: var(--theme);
+        text-shadow: 0 0 4px var(--theme);
 
         & > div {
             @include force-layout();
@@ -42,10 +46,10 @@ body {
 
     input {
         background: black;
-        color: magenta;
+        color: var(--theme);
         font-size: 30px;
 
-        border: 1px solid magenta;
+        border: 1px solid var(--theme);
         text-align: center;
 
         position: absolute;
@@ -62,7 +66,7 @@ body {
         content: "";
 
         position: absolute;
-        background: magenta;
+        background: var(--theme);
         top: 65%;
         left: 0;
         width: 100%;
